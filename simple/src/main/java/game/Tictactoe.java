@@ -114,17 +114,22 @@ public class Tictactoe {
 					else
 						g.l1.info("Already placed position Enter anyother position!!!");	
 			    }
-				if(g.horizontal(x,p,arr)|| g.vertical(x, p,arr))
+				if(g.horizontal(x,p,arr)|| g.vertical(x, p,arr)){
 				b = true;
-				else if((p/10 == 0 && p%10 == 0 )||(p/10 == d-1 && p%10 == d-1))
-			    b = g.side(x,p,arr);
-			    else if((p/10 == 0 && p%10 == d-1)||(p/10 == d-1 && p%10 == 0 )) 
-			    b = g.side1(x,p,arr);
+				}
+				else if((p/10 == 0 && p%10 == 0 )||(p/10 == d-1 && p%10 == d-1)){
+			        b = g.side(x,p,arr);
+				}
+			        else if((p/10 == 0 && p%10 == d-1)||(p/10 == d-1 && p%10 == 0 )) {
+			        b = g.side1(x,p,arr);
+			        }
 				if(b) {
-					if(x == 'X')
+					if(x == 'X'){
 					g.l1.info("!!! Player 1 Wins the Game !!!\n");
-					else 
+					}
+					else {
 					g.l1.info("!!! Player 2 Wins the Game !!!\n");
+					}
 					g.printArray(arr);
 					break;
 				}
