@@ -120,12 +120,10 @@ public class Tictactoe {
 			    b = g.side(x,p,arr);
 			    else if((p/10 == 0 && p%10 == d-1)||(p/10 == d-1 && p%10 == 0 )) 
 			    b = g.side1(x,p,arr);
-				if(b && x == 'X') {
+				if(b) {
+					if(x == 'X')
 					g.l1.info("!!! Player 1 Wins the Game !!!\n");
-					g.printArray(arr);
-					break;
-				}
-				else if(b && x == 'O') {
+					else 
 					g.l1.info("!!! Player 2 Wins the Game !!!\n");
 					g.printArray(arr);
 					break;
