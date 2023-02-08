@@ -5,9 +5,9 @@ import java.io.PrintStream;
 import java.util.Scanner;
 class Game{
 	PrintStream p=new PrintStream((new FileOutputStream(FileDescriptor.out)));
-	boolean horizontal(char c,int p,char[][] arr) {
-		int x = p/10;
-		int y = p%10;
+	boolean horizontal(char c,int u,int v,char[][] arr) {
+		int x = u;
+		int y = v;
 		for(int i=0;i<x;i++) {
 			if(arr[i][y]!=c) {
 				return false;
@@ -20,9 +20,9 @@ class Game{
 		}
 		return true;
 	}
-	boolean vertical(char c,int p,char[][] arr) {
-		int x = p/10;
-		int y = p%10;
+	boolean vertical(char c,int u,int v,char[][] arr) {
+		int x = u;
+		int y = v;
 		for(int i=0;i<y;i++) {
 			if(arr[x][i]!=c) {
 				return false;
@@ -35,9 +35,9 @@ class Game{
 		}
 		return true;
 	}
-	boolean side(char c,int p,char[][] arr) {
-		if(p%10==arr.length-1) {
-			for(int i=p%10;i>=0;i--) {
+	boolean side(char c,int u,int v,char[][] arr) {
+		if(v==arr.length-1) {
+			for(int i=v;i>=0;i--) {
 				if(arr[i][i]!=c) {
 					return false;
 				}
@@ -52,10 +52,10 @@ class Game{
 		}
 		return true;
 	}
-	boolean side1(char c,int p,char[][] arr) {
-		if(p%10==arr.length-1) {
+	boolean side1(char c,int u,int v,char[][] arr) {
+		if(v==arr.length-1) {
 			int j = 1;
-			for(int i=p%10-1;i>=0;i--) {
+			for(int i=v-1;i>=0;i--) {
 				if(arr[j++][i]!=c) {
 					return false;
 				}
@@ -63,7 +63,7 @@ class Game{
 		}
 		else {
 			int j = 1;
-			for(int i=p/10-1;i>=0;i--) {
+			for(int i=u-1;i>=0;i--) {
 				if(arr[i][j++]!=c) {
 					return false;
 				}
@@ -84,25 +84,40 @@ public class Tictactoe {
 	public static void main(String[] arg) {
 		Scanner s = new Scanner(System.in);
 		Game g = new Game();
-		int[] pos = {00,01,02,10,11,12,20,21,22};
 		g.p.println("Enter the dimention ");
 		int d = s.nextInt();
+		int [] pos = new int[d*d];
+		int k=0;
+		for(int i=0;i<d;i++) {
+			for(int j=0;j<d;j++) {
+				pos[k++] = i*10+j;
+			}
+		}
 		char [][] arr = new char[d][d];
 		char x = 0;
 		int i = 0;
 		int p1 = 0;
-		int p2 =0;
+		int u =0;
+		int v =0;
 		boolean b =false;
 		g.p.println("Player 1 uses Symbol 'X' ");
 		g.p.println("Player 2 uses Symbol 'O' ");
-	    while(i<9){
+	    while(i<d*d){
 				if(i%2==0){
 					g.p.println("1st Player's turn!!");
 					g.p.println("Enter the position to place");	
 					p1 = s.nextInt();
-					p2 = pos[p1-1];
-					if(arr[p2/10][p2%10]==0) {
-					      arr[p2/10][p2%10] = 'X';
+					if(pos[p1-1] <=9) {
+						u = 0;
+						v = pos[p1-1];
+					}
+					else
+					{
+						u = pos[p1-1]/10;
+						v = pos[p1-1]%10;
+					}
+					if(arr[u][v]==0) {
+					      arr[u][v] = 'X';
                           x = 'X';
 					}
 					else
@@ -112,22 +127,30 @@ public class Tictactoe {
 					g.p.println("2nd Player's turn!!");
 					g.p.println("Enter the position to place");	
 					p1 = s.nextInt();
-					p2 = pos[p1-1];
-					if(arr[p2/10][p2%10]==0) {
-						arr[p2/10][p2%10] = 'O';
+					if(pos[p1-1]<=9) {
+						u = 0;
+						v = pos[p1-1];
+					}
+					else
+					{
+						u = pos[p1-1]/10;
+						v = pos[p1-1]%10;
+					}
+					if(arr[u][v]==0) {
+						arr[u][v] = 'O';
 						x = 'O';
 					}
 					else
 						g.p.println("Already placed position Enter anyother position!!!");	
 			    }
-				if(g.horizontal(x,p2,arr)|| g.vertical(x, p2,arr)) {
+				if(g.horizontal(x,u,v,arr)|| g.vertical(x, u,v,arr)) {
 				b = true;
 				}
-				else if((p2/10 == 0 && p2%10 == 0 )||(p2/10 == d-1 && p2%10 == d-1)) {
-			    b = g.side(x,p2,arr);
+				else if((u == 0 && v == 0 )||(u == d-1 && v == d-1)) {
+			    b = g.side(x,u,v,arr);
 				}
-			    else if((p2/10 == 0 && p2%10 == d-1)||(p2/10 == d-1 && p2%10 == 0 )) {
-			    b = g.side1(x,p2,arr);
+			    else if((u == 0 && v == d-1)||(u == d-1 && v == 0 )) {
+			    b = g.side1(x,u,v,arr);
 			    }
 				if(b) {
 					if(x == 'X') {
@@ -140,7 +163,7 @@ public class Tictactoe {
 					break;
 				}
 				i++;
-				if(i==9) {
+				if(i==d*d) {
 					g.p.println("!!! The Game is TIE !!!\n");
 					g.printArray(arr);
 				}
