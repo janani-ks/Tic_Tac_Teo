@@ -105,8 +105,9 @@ public class Tic {
 	}
 	public static void main(String[] arg) {
 		Tac g = new Tac();
-		Tac.p.println("Enter the dimention ");
+		Tac.p.println("Enter the dimention for TIC-TAC-TEO Game !!");
 		int d = s.nextInt();
+		Tac.p.println("         GAME STARTED.....HAVE FUN !!!\n");
 		int [] pos = new int[d*d];
 		char [][] arr = new char[d][d];
 		int k=0;
@@ -117,18 +118,18 @@ public class Tic {
 				pos[k++] = i*10+j;
 			}
 		}
-		Tac.p.println("Player 1 uses Symbol 'X' ");
-		Tac.p.println("Player 2 uses Symbol 'O' ");
+		Tac.p.println("Player 1 uses Symbol = 'X' ");
+		Tac.p.println("Player 2 uses Symbol = 'O' \n");
 		i=0;
 	    while(i<d*d){
 	    	    check(i);
-				Tac.p.println("Enter the position to place");	
+				Tac.p.println("Enter the position like 1,2,3...");	
 				store(pos);
 				if(arr[u][v]==0) {
 					arr[u][v] = x;
 				}
 				else {
-					Tac.p.println("Already placed position Enter anyother position!!!");
+					Tac.p.println("Already placed position Enter anyother position !!!");
 					store(pos);
 				}
 				if(g.horizontal(x,u,v,arr)|| g.vertical(x, u,v,arr)) {
@@ -140,6 +141,7 @@ public class Tic {
 			    else if((u == 0 && v == d-1)||(u == d-1 && v == 0 )) {
 			    b = g.side1(x,u,v,arr);
 			    }
+				g.printArray(arr);
 				if(b) {
 					if(x == 'X') {
 					Tac.p.println("!!! Player 1 Wins the Game !!!\n");
@@ -147,14 +149,13 @@ public class Tic {
 					else {
 					Tac.p.println("!!! Player 2 Wins the Game !!!\n");
 					}
-					g.printArray(arr);
 					break;
 				}
 				i++;
 				if(i==d*d) {
 					Tac.p.println("!!! The Game is TIE !!!\n");
-					g.printArray(arr);
 				}
 	     }
+	     Tac.p.println("-----------THANKS FOR PLAYING-----------");
 	}
 }
