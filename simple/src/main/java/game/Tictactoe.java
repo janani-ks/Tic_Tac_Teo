@@ -3,7 +3,6 @@ import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
-import java.util.logging.Logger;
 class Game{
 	PrintStream p=new PrintStream((new FileOutputStream(FileDescriptor.out)));
 	boolean horizontal(char c,int p,char[][] arr) {
@@ -121,12 +120,15 @@ public class Tictactoe {
 					else
 						g.p.println("Already placed position Enter anyother position!!!");	
 			    }
-				if(g.horizontal(x,p2,arr)|| g.vertical(x, p2,arr))
+				if(g.horizontal(x,p2,arr)|| g.vertical(x, p2,arr)) {
 				b = true;
-				else if((p2/10 == 0 && p2%10 == 0 )||(p2/10 == d-1 && p2%10 == d-1))
+				}
+				else if((p2/10 == 0 && p2%10 == 0 )||(p2/10 == d-1 && p2%10 == d-1)) {
 			    b = g.side(x,p2,arr);
-			    else if((p2/10 == 0 && p2%10 == d-1)||(p2/10 == d-1 && p2%10 == 0 )) 
+				}
+			    else if((p2/10 == 0 && p2%10 == d-1)||(p2/10 == d-1 && p2%10 == 0 )) {
 			    b = g.side1(x,p2,arr);
+			    }
 				if(b) {
 					if(x == 'X')
 					g.p.println("!!! Player 1 Wins the Game !!!\n");
