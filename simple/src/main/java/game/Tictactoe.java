@@ -130,10 +130,12 @@ public class Tictactoe {
 			    b = g.side1(x,p2,arr);
 			    }
 				if(b) {
-					if(x == 'X')
+					if(x == 'X') {
 					g.p.println("!!! Player 1 Wins the Game !!!\n");
-					else 
+					}
+					else {
 					g.p.println("!!! Player 2 Wins the Game !!!\n");
+					}
 					g.printArray(arr);
 					break;
 				}
