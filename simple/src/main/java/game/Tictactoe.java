@@ -1,8 +1,11 @@
 package game;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.logging.Logger;
 class Game{
-	Logger l1 = Logger.getLogger("com.api.jar");
+	PrintStream p=new PrintStream((new FileOutputStream(FileDescriptor.out)));
 	boolean horizontal(char c,int p,char[][] arr) {
 		int x = p/10;
 		int y = p%10;
@@ -72,9 +75,9 @@ class Game{
 	void printArray(char[][] arr) {
 		for (int k = 0; k <arr.length; k++) { 
 	         for (int j = 0; j < arr[k].length; j++) { 
-	            System.out.print(arr[k][j] + "|");
+	            p.print(arr[k][j] + "|");
 	         }
-	         l1.info("\n");
+	         p.println("\n");
 		}
 	}
 }
@@ -82,60 +85,59 @@ public class Tictactoe {
 	public static void main(String[] arg) {
 		Scanner s = new Scanner(System.in);
 		Game g = new Game();
-		g.l1.info("Enter the dimention ");
+		int[] pos = {00,01,02,10,11,12,20,21,22};
+		g.p.println("Enter the dimention ");
 		int d = s.nextInt();
 		char [][] arr = new char[d][d];
 		char x = 0;
 		int i = 0;
-		int p = 0;
+		int p1 = 0;
+		int p2 =0;
 		boolean b =false;
-		g.l1.info("Player 1 uses Symbol 'X' ");
-		g.l1.info("Player 2 uses Symbol 'O' ");
+		g.p.println("Player 1 uses Symbol 'X' ");
+		g.p.println("Player 2 uses Symbol 'O' ");
 	    while(i<9){
 				if(i%2==0){
-					g.l1.info("1st Player turn!!");
-					g.l1.info("Enter the position to place");	
-					p = s.nextInt();
-					if(arr[p/10][p%10]==0) {
-					      arr[p/10][p%10] = 'X';
+					g.p.println("1st Player's turn!!");
+					g.p.println("Enter the position to place");	
+					p1 = s.nextInt();
+					p2 = pos[p1-1];
+					if(arr[p2/10][p2%10]==0) {
+					      arr[p2/10][p2%10] = 'X';
                           x = 'X';
 					}
 					else
-						g.l1.info("Already placed position Enter anyother position!!!");	
+						g.p.println("Already placed position Enter anyother position!!!");	
 				}
 				else {
-					g.l1.info("2nd Player turn!!");
-					g.l1.info("Enter the position to place");	
-					p = s.nextInt();
-					if(arr[p/10][p%10]==0) {
-						arr[p/10][p%10] = 'O';
+					g.p.println("2nd Player's turn!!");
+					g.p.println("Enter the position to place");	
+					p1 = s.nextInt();
+					p2 = pos[p1-1];
+					if(arr[p2/10][p2%10]==0) {
+						arr[p2/10][p2%10] = 'O';
 						x = 'O';
 					}
 					else
-						g.l1.info("Already placed position Enter anyother position!!!");	
+						g.p.println("Already placed position Enter anyother position!!!");	
 			    }
-				if(g.horizontal(x,p,arr)|| g.vertical(x, p,arr)){
+				if(g.horizontal(x,p2,arr)|| g.vertical(x, p2,arr))
 				b = true;
-				}
-				else if((p/10 == 0 && p%10 == 0 )||(p/10 == d-1 && p%10 == d-1)){
-			        b = g.side(x,p,arr);
-				}
-			        else if((p/10 == 0 && p%10 == d-1)||(p/10 == d-1 && p%10 == 0 )) {
-			        b = g.side1(x,p,arr);
-			        }
+				else if((p2/10 == 0 && p2%10 == 0 )||(p2/10 == d-1 && p2%10 == d-1))
+			    b = g.side(x,p2,arr);
+			    else if((p2/10 == 0 && p2%10 == d-1)||(p2/10 == d-1 && p2%10 == 0 )) 
+			    b = g.side1(x,p2,arr);
 				if(b) {
-					if(x == 'X'){
-					g.l1.info("!!! Player 1 Wins the Game !!!\n");
-					}
-					else {
-					g.l1.info("!!! Player 2 Wins the Game !!!\n");
-					}
+					if(x == 'X')
+					g.p.println("!!! Player 1 Wins the Game !!!\n");
+					else 
+					g.p.println("!!! Player 2 Wins the Game !!!\n");
 					g.printArray(arr);
 					break;
 				}
 				i++;
 				if(i==9) {
-					g.l1.info("!!! The Game is TIE !!!\n");
+					g.p.println("!!! The Game is TIE !!!\n");
 					g.printArray(arr);
 				}
 	     }
