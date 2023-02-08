@@ -4,7 +4,7 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 class Tac{
-	PrintStream p=new PrintStream((new FileOutputStream(FileDescriptor.out)));
+	static PrintStream p=new PrintStream((new FileOutputStream(FileDescriptor.out)));
 	boolean horizontal(char c,int x,int y,char[][] arr) {
 		for(int i=0;i<x;i++) {
 			if(arr[i][y]!=c) {
@@ -80,6 +80,17 @@ public class Tic {
 	static int u =0;
 	static int v =0;
 	static int p1 = 0;
+	static char x = 0;
+	static void check(int i) {
+		if(i%2==0){
+		    Tac.p.println("1st Player's turn!!");
+			x = 'X';
+		}
+		else {
+			Tac.p.println("2nd Player's turn!!");
+			x = 'O';
+		}
+	}
 	static void store(int[] pos) {
 		p1 = s.nextInt();
 		if(pos[p1-1] <=9) {
@@ -94,38 +105,30 @@ public class Tic {
 	}
 	public static void main(String[] arg) {
 		Tac g = new Tac();
-		g.p.println("Enter the dimention ");
+		Tac.p.println("Enter the dimention ");
 		int d = s.nextInt();
 		int [] pos = new int[d*d];
 		char [][] arr = new char[d][d];
 		int k=0;
 		int i = 0;
 		boolean b =false;
-		char x = 0;
 		for(i=0;i<d;i++) {
 			for(int j=0;j<d;j++) {
 				pos[k++] = i*10+j;
 			}
 		}
-		g.p.println("Player 1 uses Symbol 'X' ");
-		g.p.println("Player 2 uses Symbol 'O' ");
+		Tac.p.println("Player 1 uses Symbol 'X' ");
+		Tac.p.println("Player 2 uses Symbol 'O' ");
 		i=0;
 	    while(i<d*d){
-				if(i%2==0){
-					g.p.println("1st Player's turn!!");
-					x = 'X';
-				}
-				else {
-					g.p.println("2nd Player's turn!!");
-					x = 'O';
-				}
-				g.p.println("Enter the position to place");	
+	    	    check(i);
+				Tac.p.println("Enter the position to place");	
 				store(pos);
 				if(arr[u][v]==0) {
 					arr[u][v] = x;
 				}
 				else {
-					g.p.println("Already placed position Enter anyother position!!!");
+					Tac.p.println("Already placed position Enter anyother position!!!");
 					store(pos);
 				}
 				if(g.horizontal(x,u,v,arr)|| g.vertical(x, u,v,arr)) {
@@ -139,17 +142,17 @@ public class Tic {
 			    }
 				if(b) {
 					if(x == 'X') {
-					g.p.println("!!! Player 1 Wins the Game !!!\n");
+					Tac.p.println("!!! Player 1 Wins the Game !!!\n");
 					}
 					else {
-					g.p.println("!!! Player 2 Wins the Game !!!\n");
+					Tac.p.println("!!! Player 2 Wins the Game !!!\n");
 					}
 					g.printArray(arr);
 					break;
 				}
 				i++;
 				if(i==d*d) {
-					g.p.println("!!! The Game is TIE !!!\n");
+					Tac.p.println("!!! The Game is TIE !!!\n");
 					g.printArray(arr);
 				}
 	     }
