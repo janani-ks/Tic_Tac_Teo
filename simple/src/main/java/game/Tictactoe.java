@@ -101,7 +101,7 @@ public class Tic {
 			return true;
 			}
 			else if((u == v )||(u+v == (d-1) )){
-		    if(g.side(x,u,v,arr) && u == v) {
+		    if(g.side(x,u,v,arr)) {
 		    	return true;
 		    }
 		    else if(g.side1(x,u,v,arr)) {
