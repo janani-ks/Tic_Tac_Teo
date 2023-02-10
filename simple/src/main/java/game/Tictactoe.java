@@ -77,10 +77,12 @@ class Tac{
 }
 public class Tic {
 	static Scanner s = new Scanner(System.in);
+	static Tac g = new Tac();
 	static int u =0;
 	static int v =0;
 	static int p1 = 0;
 	static char x = 0;
+	static  boolean b =false;
 	static void check(int i) {
 		if(i%2==0){
 		    Tac.p.println("1st Player's turn!!");
@@ -103,8 +105,21 @@ public class Tic {
 			v = pos[p1-1]%10;
 		}
 	}
+	static boolean check1(int d,char[][] arr) {
+		    if(g.horizontal(x,u,v,arr)|| g.vertical(x, u,v,arr)) {
+			return true;
+			}
+			else if((u == 0 && v == 0 )||(u == d-1 && v == d-1)) {
+		    b = g.side(x,u,v,arr);
+		    return b;
+			}
+		    else if((u == 0 && v == d-1)||(u == d-1 && v == 0 )) {
+		    b = g.side1(x,u,v,arr);
+		    return b;
+		    }
+		    return false;
+	}
 	public static void main(String[] arg) {
-		Tac g = new Tac();
 		Tac.p.println("Enter the dimention for TIC-TAC-TEO Game !!");
 		int d = s.nextInt();
 		Tac.p.println("         GAME STARTED.....HAVE FUN !!!\n");
@@ -112,7 +127,6 @@ public class Tic {
 		char [][] arr = new char[d][d];
 		int k=0;
 		int i = 0;
-		boolean b =false;
 		for(i=0;i<d;i++) {
 			for(int j=0;j<d;j++) {
 				pos[k++] = i*10+j;
@@ -131,16 +145,9 @@ public class Tic {
 				else {
 					Tac.p.println("Already placed position Enter anyother position !!!");
 					store(pos);
+					arr[u][v] = x;
 				}
-				if(g.horizontal(x,u,v,arr)|| g.vertical(x, u,v,arr)) {
-				b = true;
-				}
-				else if((u == 0 && v == 0 )||(u == d-1 && v == d-1)) {
-			    b = g.side(x,u,v,arr);
-				}
-			    else if((u == 0 && v == d-1)||(u == d-1 && v == 0 )) {
-			    b = g.side1(x,u,v,arr);
-			    }
+				b = check1(d,arr);
 				g.printArray(arr);
 				if(b) {
 					if(x == 'X') {
@@ -159,3 +166,4 @@ public class Tic {
 	     Tac.p.println("-----------THANKS FOR PLAYING-----------");
 	}
 }
+
