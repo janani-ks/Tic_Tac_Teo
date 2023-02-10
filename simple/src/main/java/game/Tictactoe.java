@@ -31,39 +31,30 @@ class Tac{
 		}
 		return true;
 	}
-	boolean side(char c,int x,int y,char[][] arr) {
-		if(y==arr.length-1) {
-			for(int i=y;i>=0;i--) {
-				if(arr[i][i]!=c) {
+	boolean side1(char c,int x,int y,char[][] arr) {
+			for(int i=0;i<x;i++) {
+				if(arr[i][Math.abs(arr.length-i-1)]!=c) {
 					return false;
 				}
 			}
-		}
-		else {
-			for(int i=0;i<=arr.length-1;i++) {
-				if(arr[i][i]!=c) {
+			for(int i=x+1;i<arr.length;i++) {
+				if(arr[i][Math.abs(arr.length-i-1)]!=c) {
 					return false;
 				}
 			}
-		}
 		return true;
 	}
-	boolean side1(char c,int x,int y,char[][] arr) {
-		int j = 1;
-		if(y==arr.length-1) {
-			for(int i=y-1;i>=0;i--) {
-				if(arr[j++][i]!=c) {
+	boolean side(char c,int x,int y,char[][] arr) {
+			for(int i=0;i<x;i++) {
+				if(arr[i][i]!=c) {
 					return false;
 				}
 			}
-		}
-		else {
-			for(int i=x-1;i>=0;i--) {
-				if(arr[i][j++]!=c) {
+			for(int i=x+1;i<arr.length;i++) {
+				if(arr[i][i]!=c) {
 					return false;
 				}
 			}
-		}
 		return true;
 	}
 	void printArray(char[][] arr) {
@@ -109,14 +100,14 @@ public class Tic {
 		    if(g.horizontal(x,u,v,arr)|| g.vertical(x, u,v,arr)) {
 			return true;
 			}
-			else if((u == 0 && v == 0 )||(u == d-1 && v == d-1)) {
-		    b = g.side(x,u,v,arr);
-		    return b;
-			}
-		    else if((u == 0 && v == d-1)||(u == d-1 && v == 0 )) {
-		    b = g.side1(x,u,v,arr);
-		    return b;
+			else if((u == v )||(u+v == (d-1) )){
+		    if(g.side(x,u,v,arr) && u == v) {
+		    	return true;
 		    }
+		    else if(g.side1(x,u,v,arr)) {
+		    	return true;
+		    }
+			}
 		    return false;
 	}
 	public static void main(String[] arg) {
@@ -166,4 +157,3 @@ public class Tic {
 	     Tac.p.println("-----------THANKS FOR PLAYING-----------");
 	}
 }
-
