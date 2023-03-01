@@ -32,7 +32,7 @@ public class Tic {
 		}
 		}
 		catch(Exception e){
-			System.out.println("Enter the correct position:");
+			Tac.p.println("Enter the correct position:");
 			return false;
 		}
 		return true;
@@ -42,10 +42,10 @@ public class Tic {
 			return true;
 			}
 			else if((hindex == vindex )||(hindex+vindex == (d-1) )){
-		    if(obj.side(turn,hindex,vindex,arr)&& (hindex==vindex)) {
+		    if(obj.side(turn,hindex,arr)&& (hindex==vindex)) {
 		    	return true;
 		    }
-		    else if(obj.side1(turn,hindex,vindex,arr)) {
+		    else if(obj.side1(turn,hindex,arr)) {
 		    	b = true;
 		    	return true;
 		    }
@@ -87,8 +87,9 @@ public class Tic {
 				else {
 					Tac.p.println("Already placed position Enter anyother position !!!");
 					m = store(pos);
-					if(m)
+					if(m) {
 					arr[hindex][vindex] = turn;
+					}
 					else {
 						continue;
 					}
