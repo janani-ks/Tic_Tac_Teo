@@ -32,7 +32,7 @@ class Tac{
 		}
 		return true;
 	}
-	boolean side1(char c,int x,int y,char[][] arr) {
+	boolean side1(char c,int x,char[][] arr) {
 			for(int i=0;i<x;i++) {
 				if(arr[i][Math.abs(arr.length-i-1)]!=c) {
 					return false;
@@ -45,7 +45,7 @@ class Tac{
 			}
 		return true;
 	}
-	boolean side(char c,int x,int y,char[][] arr) {
+	boolean side(char c,int x,char[][] arr) {
 			for(int i=0;i<x;i++) {
 				if(arr[i][i]!=c) {
 					return false;
